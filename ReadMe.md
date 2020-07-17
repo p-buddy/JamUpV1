@@ -1,6 +1,6 @@
 # JamUp
 
-JamUp is a work-in-progress project that aims to let anyone make music using simple scripting. This comes with the added benefit that anyone who's interested in making music, and willing to use this tool, will also learn some scripting.
+JamUp is a work-in-progress that aims to let anyone make music using simple scripting. This comes with the added benefit that anyone who's interested in making music, and willing to use this tool, will also learn some scripting.
 
 ## Usage
 

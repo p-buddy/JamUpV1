@@ -1,32 +1,36 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 
-public class CoroutineProcessor : Singleton<CoroutineProcessor>
+namespace MonoBehaviours.Utility
 {
-    private Queue<IEnumerator> actions = new Queue<IEnumerator>();
-
-    public void EnqueCoroutine(IEnumerator coroutine)
+    public class CoroutineProcessor : Singleton<CoroutineProcessor>
     {
-        actions.Enqueue(coroutine);
-    }
+        public bool Processing => actions.Count > 0;
+        private Queue<IEnumerator> actions = new Queue<IEnumerator>();
 
-    private IEnumerator Process()
-    {
-        if (actions.Count > 0)
+        public void EnqueCoroutine(IEnumerator coroutine)
         {
-            yield return StartCoroutine(actions.Dequeue());
+            actions.Enqueue(coroutine);
         }
-        else
-        {
-            yield return null;
-        }
-    }
 
-    private void Update()
-    {
-        if (actions.Count > 0)
+        private IEnumerator Process()
         {
-            StartCoroutine(Process());
+            if (actions.Count > 0)
+            {
+                yield return StartCoroutine(actions.Dequeue());
+            }
+            else
+            {
+                yield return null;
+            }
+        }
+
+        private void Update()
+        {
+            if (actions.Count > 0)
+            {
+                StartCoroutine(Process());
+            }
         }
     }
 }

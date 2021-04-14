@@ -16,7 +16,7 @@ public class EntitySpawner : IAudioEventSpawner, IDisposable
         audioEventArchetype = entityManager.CreateArchetype(typeof(PlayEventComponent),
             typeof(ClipAliasComponent),
             typeof(TrackAliasComponent),
-            typeof(UnprocessedComponent));
+            typeof(UnMergedClipComponent));
         audioEvents = new NativeList<Entity>(Allocator.Persistent);
     }
 

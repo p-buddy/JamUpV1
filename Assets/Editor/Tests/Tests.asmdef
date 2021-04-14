@@ -1,0 +1,10 @@
+﻿{
+    "name": "Tests",
+    "references": ["ScriptsAssembly", "Unity.Entities", "Unity.Burst", "Unity.Collections", "Unity.Jobs", "MoonSharp"],
+    "optionalUnityReferences": [
+        "TestAssemblies"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ]
+}

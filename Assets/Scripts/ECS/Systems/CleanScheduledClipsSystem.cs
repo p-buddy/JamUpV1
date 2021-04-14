@@ -14,7 +14,7 @@ public class CleanScheduledClipsSystem : SystemBase
 
     protected override void OnUpdate()
     {
-        var ecb = m_EndSimulationEcbSystem.CreateCommandBuffer().ToConcurrent();
+        var ecb = m_EndSimulationEcbSystem.CreateCommandBuffer().AsParallelWriter();
         Entities.WithAll<ScheduleForPlayComponent>().ForEach((Entity entity, int entityInQueryIndex) =>
         {
             ecb.AddComponent<ScheduledComponent>(entityInQueryIndex, entity);

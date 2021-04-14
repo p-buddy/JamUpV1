@@ -24,7 +24,7 @@ public class StageClipsForPlaySystem : SystemBase
         }
 
         double currentTrackTime = playBack.CurrentTrackTime;
-        var ecb = m_EndSimulationEcbSystem.CreateCommandBuffer().ToConcurrent();
+        var ecb = m_EndSimulationEcbSystem.CreateCommandBuffer().AsParallelWriter();
 
         Entities.WithNone<ScheduledComponent, ScheduleForPlayComponent>().ForEach((Entity entity, int entityInQueryIndex, in PlayEventComponent playEvent) =>
         {

@@ -12,4 +12,11 @@ public readonly struct PlayEventComponent : IComponentData
         Volume = details.Volume;
         TrackTime = details.TrackTime;
     }
+    
+    public PlayEventComponent(float pitch, float volume, float trackTime)
+    {
+        Pitch = pitch;
+        Volume = volume;
+        TrackTime = trackTime;
+    }
 }

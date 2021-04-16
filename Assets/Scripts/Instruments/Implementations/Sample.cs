@@ -1,4 +1,5 @@
-﻿using ClipManagement;
+﻿using AudioEventSystem.DTO;
+using ClipManagement;
 using MonoBehaviours;
 using MoonSharp.Interpreter;
 
@@ -27,7 +28,7 @@ public class Sample: ISample
     private void CreateEvent(in ClipAliasComponent clip, in PlayEventDetails details)
     {
         GameManager.Instance.TryFetch(out IAudioEventSpawner spawner);
-        spawner.SpawnAudioEvent(clip, TrackAlias, state, details);
+        spawner.EnqueueAudioEvent(new AudioEvent(clip, TrackAlias, state, details));
     }
 
     #region ISample Implementation

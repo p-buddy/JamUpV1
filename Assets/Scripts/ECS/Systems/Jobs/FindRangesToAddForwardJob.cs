@@ -33,7 +33,7 @@ namespace ECS.Systems.Jobs
                 Intervals.Add(new TimeInterval(IntervalQuery, 1));
                 return;
             }
-            
+
             int previousSampleIndex = -1;
             TimeInterval remainingQuery = IntervalQuery;
             int totalIntervalsAdded = 0;

@@ -62,33 +62,6 @@ namespace ECS.Systems
         private bool done = false;
         protected override void OnUpdate()
         {
-            if (done)
-                return;
-            done = true;
-            
-            NativeList<int> test = new NativeList<int>(Allocator.Temp) {0, 1, 2, 3, 4, 5, 6};
-            int lengthBefore = test.Length;
-            int amountToAdd = 1;
-            int indexToAddAt = 0;
-            int amountAdded = 0;
-            int iterations = 0;
-            while (amountAdded < amountToAdd && iterations < 10)
-            {
-                int amountRemaining = amountToAdd - amountAdded;
-                int endIndex = Math.Min(test.Length, indexToAddAt + amountRemaining);
-                test.InsertRangeWithBeginEnd(indexToAddAt, endIndex);
-                Debug.LogWarning($"insert: {indexToAddAt},{endIndex}");
-                amountAdded += (endIndex - indexToAddAt);
-                iterations++;
-            }
-            
-            Debug.LogWarning($"Before {lengthBefore}, After {test.Length}");
-
-            foreach (var t in test)
-            {
-                Debug.LogWarning(t);
-            }
-            
             return;
             
             if (!GameManager.Instance.TryFetch(out IClipRegister clipRegister))

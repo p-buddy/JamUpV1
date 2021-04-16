@@ -10,11 +10,14 @@ public class PlayAudio : MonoBehaviour
 {
     public void StartPlaying()
     {
+        GameManager.Instance.TryFetch(out IAudioEventSpawner spawner);
+        CoroutineProcessor.Instance.EnqueCoroutine(spawner.SpawnAll(() => Debug.Log("Done")));
         CoroutineProcessor.Instance.EnqueCoroutine(Begin());
     }
 
     private IEnumerator Begin()
     {
+        yield return null;
         GameManager.Instance.TryFetch(out IClipRegister register);
         while (register.LoadingInProgress())
         {

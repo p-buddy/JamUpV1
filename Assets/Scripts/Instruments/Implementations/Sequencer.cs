@@ -6,9 +6,10 @@ public class Sequencer : ISequencer
 {
     private int currentIndex;
     private readonly ISample[] samples;
-    public Sequencer(ISample[] samples)
+    public Sequencer(ISample[] samples, in TrackAliasComponent trackAlias)
     {
         this.samples = samples;
+        TrackAlias = trackAlias;
         Array.ForEach(this.samples, sample => sample.TrackAlias = TrackAlias);
     }
 

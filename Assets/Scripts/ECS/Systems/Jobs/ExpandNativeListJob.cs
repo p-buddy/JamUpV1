@@ -4,6 +4,7 @@ using JetBrains.Annotations;
 using Unity.Burst;
 using Unity.Collections;
 using Unity.Jobs;
+using Utility;
 
 namespace ECS.Systems.Jobs
 {
@@ -13,6 +14,9 @@ namespace ECS.Systems.Jobs
         public NativeList<T> ToExpand;
         [ReadOnly]
         public NativeList<IndexRange> RangesToAdd;
+
+        [ReadOnly] 
+        public bool IterateBackwards;
         
         public void Execute()
         {
@@ -21,9 +25,19 @@ namespace ECS.Systems.Jobs
                 return;
             }
 
-            for (int index = RangesToAdd.Length - 1; index >= 0; index--)
+            if (IterateBackwards)
             {
-                AddRange(RangesToAdd[index]);
+                for (int index = RangesToAdd.Length - 1; index >= 0; index--)
+                {
+                    AddRange(RangesToAdd[index]);
+                }
+            }
+            else
+            {
+                for (int index = 0; index < RangesToAdd.Length; index++)
+                {
+                    AddRange(RangesToAdd[index]);
+                }
             }
         }
 

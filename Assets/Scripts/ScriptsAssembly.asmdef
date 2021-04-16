@@ -1,4 +1,4 @@
 ﻿{
 	"name": "ScriptsAssembly",
-	"references": ["Unity.Entities", "Unity.Burst", "Unity.Collections", "Unity.Jobs", "MoonSharp"]
+	"references": ["Unity.Entities", "Unity.Burst", "Unity.Collections", "Unity.Jobs", "MoonSharp", "DSUnity"]
 }

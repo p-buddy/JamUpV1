@@ -17,6 +17,8 @@ public class StageClipsForPlaySystem : SystemBase
 
     protected override void OnUpdate()
     {
+        return;
+        
         GameManager.Instance.TryFetch(out IPlayBack playBack);
         if (playBack == null)
         {

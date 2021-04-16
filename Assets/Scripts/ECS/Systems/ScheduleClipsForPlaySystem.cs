@@ -8,6 +8,8 @@ public class ScheduleClipsForPlaySystem : SystemBase
 {
     protected override void OnUpdate()
     {
+        return;
+        
         GameManager.Instance.TryFetch(out IPlayBack playBack);
         if (playBack == null)
         {

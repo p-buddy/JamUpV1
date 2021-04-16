@@ -5,9 +5,10 @@ using MoonSharp.Interpreter;
 public class Chord : IChord
 {
     private ISample[] samples;
-    public Chord(ISample[] samples)
+    public Chord(ISample[] samples, in TrackAliasComponent trackAlias)
     {
         this.samples = samples;
+        TrackAlias = trackAlias;
         Array.ForEach(this.samples, sample => sample.TrackAlias = TrackAlias);
     }
 

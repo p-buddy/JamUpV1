@@ -3,8 +3,6 @@ using UnityEngine;
 public readonly struct PlayEventDetails
 {
     public double StartTime { get; }
-    
-    [field: SerializeField]
     public double MaxPlayTime { get; }
     public float Volume { get; }
 

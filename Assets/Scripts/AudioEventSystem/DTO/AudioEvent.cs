@@ -8,8 +8,6 @@ namespace AudioEventSystem.DTO
         public ClipAliasComponent ClipAlias { get; }
         public TrackAliasComponent TrackAlias { get; }
         public SampleState SampleState { get; }
-        
-        [field: SerializeField]
         public PlayEventDetails Details { get; }
         
         public AudioEvent(in ClipAliasComponent clip, in TrackAliasComponent track, in SampleState state,

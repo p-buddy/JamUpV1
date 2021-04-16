@@ -14,8 +14,15 @@ namespace MonoBehaviours
         IObjectWrapper<IAudioClipPlayer>,
         IObjectWrapper<ILuaInterpreter>
     {
+        #region Set WrappedObjects
+        public void Set(IPlayBack toSet) => playBack = toSet;
+        public void Set(IAudioEventSpawner toSet) => entitySpawner = toSet;
+        public void Set(IClipRegister toSet) => clipRegister = toSet;
+        public void Set(IAudioClipPlayer toSet) => player = toSet;
+        public void Set(ILuaInterpreter toSet) => luaInterpreter = toSet;
+        #endregion
+        
         #region WrappedObjects
-
         public bool TryFetch(out IPlayBack fill)
         {
             fill = playBack;
@@ -39,6 +46,7 @@ namespace MonoBehaviours
             fill = player;
             return !(fill is null);
         }
+        
 
         public bool TryFetch(out ILuaInterpreter fill)
         {
@@ -48,7 +56,7 @@ namespace MonoBehaviours
 
         #endregion WrappedObjects
 
-        private EntitySpawner entitySpawner;
+        private IAudioEventSpawner entitySpawner;
         private IAudioClipPlayer player;
         private IPlayBack playBack;
         private IClipRegister clipRegister;
@@ -64,7 +72,7 @@ namespace MonoBehaviours
             playBack = null;
         }
 
-        public void Awake()
+        public void Start()
         {
             player = player ?? new AudioSourcePool();
             clipRegister = clipRegister ?? new ClipRegister();

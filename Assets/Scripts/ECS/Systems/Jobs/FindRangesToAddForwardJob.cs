@@ -26,6 +26,21 @@ namespace ECS.Systems.Jobs
         [WriteOnly]
         public NativeArray<MinMaxIndex> MinMax;
 
+        public FindRangesToAddForwardJob(NativeList<TimeInterval> intervals,
+            NativeList<IndexRange> rangesToAdd,
+            TimeInterval intervalQuery,
+            int frequency,
+            bool rangesWillBeIteratedBackwards,
+            NativeArray<MinMaxIndex> minMax)
+        {
+            Intervals = intervals;
+            RangesToAdd = rangesToAdd;
+            IntervalQuery = intervalQuery;
+            Frequency = frequency;
+            RangesWillBeIteratedBackwards = rangesWillBeIteratedBackwards;
+            MinMax = minMax;
+        }
+        
         public void Execute()
         {
             if (Intervals.Length == 0)

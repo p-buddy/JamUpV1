@@ -18,6 +18,13 @@ namespace ECS.Systems.Jobs
         [ReadOnly] 
         public bool IterateBackwards;
         
+        public ExpandNativeListJob(NativeList<T> toExpand, NativeList<IndexRange> rangesToAdd, bool iterateBackwards)
+        {
+            ToExpand = toExpand;
+            RangesToAdd = rangesToAdd;
+            IterateBackwards = iterateBackwards;
+        }
+        
         public void Execute()
         {
             if (RangesToAdd.Length == 0)

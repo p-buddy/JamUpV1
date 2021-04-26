@@ -13,7 +13,7 @@ namespace ECS.Systems.Utility
     public readonly struct ProcessClipHelper<T, U> where T : unmanaged, IClipData<T> where U : unmanaged, IClipDataFactory<T>
     {
         private const int ParallelForBatchCount = 32;
-        private const float MaxJobTime = 1.0f;
+        private const float MaxJobTime = 0.25f;
         private TimeInterval ClipInterval { get; }
         private float Volume { get; }
         private int Frequency { get; }
@@ -44,7 +44,7 @@ namespace ECS.Systems.Utility
             yield return null;
             
             NativeArray<MinMaxIndex>? minMaxArray = null;
-            JobHandle? forwardJobHandle = null;
+            JobHandle forwardJobHandle = default;
             if (!intervalsByPitch.TryGetValue(Pitch, out NativeList<TimeInterval> intervals))
             {
                 intervalsByPitch[Pitch] = new NativeList<TimeInterval>(Allocator.Persistent);
@@ -62,14 +62,15 @@ namespace ECS.Systems.Utility
                     Frequency,
                     false,
                     minMaxArray.Value);
-                forwardJobHandle = forwardJob.Schedule(intervalHandlesByPitch[Pitch]);
-                intervalHandlesByPitch[Pitch] = forwardJobHandle.Value;
+                intervalHandlesByPitch.TryGetValue(Pitch, out JobHandle intervalDependency);
+                forwardJobHandle = forwardJob.Schedule(intervalDependency);
+                intervalHandlesByPitch[Pitch] = forwardJobHandle;
             }
             
             yield return null;
-            
-            forwardJobHandle?.Complete();
-            
+        
+            forwardJobHandle.Complete();
+
             yield return null;
             
             MinMaxIndex minMax = minMaxArray?[0] ?? new MinMaxIndex(rangesToAdd[0].StartIndex, rangesToAdd[0].EndIndex);
@@ -94,16 +95,23 @@ namespace ECS.Systems.Utility
             yield return null;
 
             ExpandNativeListJob<T> expandNativeListJob = new ExpandNativeListJob<T>(clipData, rangesToAdd, false);
-            JobHandle handle = expandNativeListJob.Schedule(clipHandlesByPitch[Pitch]);
+            clipHandlesByPitch.TryGetValue(Pitch, out JobHandle clipDependency);
+            JobHandle handle = expandNativeListJob.Schedule(clipDependency);
 
             AddToClipDataJob<T, U> addToClipDataJob = new AddToClipDataJob<T, U>(minMax.Min, clipData, samples, Volume);
             handle = addToClipDataJob.Schedule(minMax.Max - minMax.Min, ParallelForBatchCount, handle);
             clipHandlesByPitch[Pitch] = handle;
+            samples.Dispose(handle);
 
-            yield return new WaitForSeconds(MaxJobTime);
-            
+            float startTime = Time.time;
+            while (!handle.IsCompleted && Time.time - startTime < MaxJobTime)
+            {
+                yield return null;
+            }
             handle.Complete();
             onComplete.Invoke();
+
+            rangesToAdd.Dispose();
         }
     }
 }

@@ -32,5 +32,10 @@ namespace ECS.Systems.Jobs.DTO
             
             return new StereoClipData(left, right);
         }
+
+        public override string ToString()
+        {
+            return $"[L: {LeftAmplitude}, R: {RightAmplitude}]";
+        }
     }
 }

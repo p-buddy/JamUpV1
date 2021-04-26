@@ -4,6 +4,7 @@ using ECS.Systems.Jobs.DTO;
 using NUnit.Framework;
 using Unity.Collections;
 using Unity.Jobs;
+using UnityEngine;
 using Utility;
 
 namespace Tests
@@ -17,7 +18,7 @@ namespace Tests
 
             public override string ToString()
             {
-                return $"Range: [From: {Range.StartIndex} - {Range.EndIndex}; Count: {Range.Count}]; Initial: [Count: {Initial.Count}]";
+                return $"Range: [Range: {Range}; Count: {Range.Count}]; Initial: [Count: {Initial.Count}]";
             }
         }
 

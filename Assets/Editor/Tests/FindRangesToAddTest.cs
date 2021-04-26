@@ -16,6 +16,8 @@ namespace Tests
         public void Test()
         {
             int frequency = 10;
+            Debug.Log($"Frequency: {frequency}");
+            Debug.Log($"Resolution: { 1 / (double)frequency}");
             List<TimeInterval> intervalsList = new List<TimeInterval>()
             {
                 new TimeInterval(0.1, 3.0),

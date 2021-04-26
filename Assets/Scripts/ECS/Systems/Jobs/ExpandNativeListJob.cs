@@ -51,7 +51,7 @@ namespace ECS.Systems.Jobs
         private void AddRange(IndexRange interval)
         {
             int amountToAdd = interval.Count;
-            if (interval.StartIndex == ToExpand.Length)
+            while (interval.StartIndex >= ToExpand.Length)
             {
                 ToExpand.Add(default);
                 amountToAdd--;

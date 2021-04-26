@@ -12,7 +12,8 @@ namespace ECS.Systems.Jobs
     {
         [ReadOnly] 
         public int StartOffset;
-
+        
+        [NativeDisableParallelForRestriction]
         public NativeList<T> ClipData;
         
         [ReadOnly]

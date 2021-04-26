@@ -30,7 +30,7 @@ namespace ECS.Systems.Jobs.DTO
 
         public override string ToString()
         {
-            return $"({StartTime} - {EndTime} [count: {ClipCount}])";
+            return $"({StartTime} - {EndTime} [clip count: {ClipCount}])";
         }
     }
 }
